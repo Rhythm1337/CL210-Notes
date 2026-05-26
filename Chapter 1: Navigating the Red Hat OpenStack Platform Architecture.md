@@ -57,5 +57,13 @@ podman inspect --format"{{.HostPath}}" 547u9783234e
 
 # To gather Logs
 podman logs octavia_worker
+podman logs --since 3h --tail 4 octavia_worker
 
+# To access container
+podman exec -it octavia_worker /bin/bash [This brings you inside the container with bash shell]
+podman exec octavia_worker hostname [This only executes commands inside the container and sends the output directly]
 ```
+
+
+
+
