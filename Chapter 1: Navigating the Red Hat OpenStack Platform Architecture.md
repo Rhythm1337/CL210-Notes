@@ -26,3 +26,36 @@ They also support the following personas
 4. **Cloud Operator** (CL210 / Automation Engineer)
 5. **Design Architect** (Undercloud / Overcloud / Cloud Admin / OpenStack Cloud Infra and Infra Services Admin)
 6. **Hardware Center Operator** (Interacts with hardware, server provisioning, monitoring)
+
+
+## Containerized Services
+
+OpenStack Platform runs most of the major services as containers. These services are isolated.
+Container images are pulled from **Red Hat Container catalog** or **local satellite server** or **Tripleo deployment** (recommended) which can be created locally on the under cloud node.
+
+## Container Commands
+
+```
+podman ps
+
+# To get service info 
+podman ps -a --format="table {{.Names}} {{.Status}}" | grep heat
+
+# To filter
+podmam ps --filter status=running --format="table {{.ID}} {{.Names}} {{.Status}}"
+
+# To display status
+podman status octavia_worker
+
+# To display images
+podman images
+
+# To inspect
+podman inspect octavia_worker
+podman inspect octavia_worker | jk .[0].xxx
+podman inspect --format"{{.HostPath}}" 547u9783234e
+
+# To gather Logs
+podman logs octavia_worker
+
+```
