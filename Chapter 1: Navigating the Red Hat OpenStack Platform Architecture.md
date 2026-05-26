@@ -64,6 +64,39 @@ podman exec -it octavia_worker /bin/bash [This brings you inside the container w
 podman exec octavia_worker hostname [This only executes commands inside the container and sends the output directly]
 ```
 
+## Systemd Services
 
+```
+systemctl status service_name
+less /etc/systemd/system/service_name
 
+systemctl stop service_name
+systemctl start service_name
+systemctl restart service_name
+systemctl status service_name
+```
 
+There is no container monitoring status so systemd restarts containers when:
+* exit signal
+* unclear exit system signal like if a container crashes after starting
+* timeout reached when a container takes more than 1 minute 30 seconds to start
+
+```
+systemctl list-timers | grep tripleo
+```
+
+## Logs
+
+Logs are stored in /var/log/containers/
+* stdout
+* stderr
+
+## Config Files
+
+These are configuration files for the containers, they live in **/var/lib/config-data/puppet-generated/**
+Containarized services are named with a tripleo_ prefix because they are installed by it.
+```
+ls /etc/systemd/system/tripleo_*.service
+/etc/systemd/system/tripleo_aodh_api_healthcheck.service
+/etc/systemd/system/tripleo_aodh_evaluator_healthcheck.service**
+```
