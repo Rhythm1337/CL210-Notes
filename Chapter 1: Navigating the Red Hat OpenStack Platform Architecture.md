@@ -100,3 +100,16 @@ ls /etc/systemd/system/tripleo_*.service
 /etc/systemd/system/tripleo_aodh_api_healthcheck.service
 /etc/systemd/system/tripleo_aodh_evaluator_healthcheck.service**
 ```
+
+# Undercloud
+
+To run overcloud you need undercloud. This is a mini self contained openstack on just 1 server.
+Undercloud uses a toolset called TripleO which is basically **Openstack on Openstack** lmao.
+
+1. **Keystone: (Identity Service)** Identity service used for auth for undercloud's openstacks services
+2. **Glance: (Image Service)** Image service that stores initial images that can be deployed to bare metal. They contain RHEL, KVM hypervison and container runtimes
+3. **Ironic: (Bare Metal Service)** This provisions physical machines
+4. **Nova: (Compute Service)** This works with Bare Metal Service's to provision nodes by taking the inventory of all the avaliable systems and functional nodes where we can deploy a machine
+5. **Heat: (Orchestration Service)** This provides set of yaml templates and roles to define config and instructions to provision overcloud deployments.
+6. **Object Service: (Swift)** This holds images, deployment logs and all
+7. **Neutron: (Networking Service)** This is the service that configures interfaces for external (public access) and provisioning (DHCP and PXE boot functions) networks.
