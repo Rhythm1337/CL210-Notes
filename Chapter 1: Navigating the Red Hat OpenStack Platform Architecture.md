@@ -117,4 +117,36 @@ Undercloud uses a toolset called TripleO which is basically **Openstack on Opens
 
 # Overcloud
 
-Same thing but more services avaliable
+1. **Cinder: (Block Storage Service)** Manages persistent storage volumes (virtual hard drives) for VMs and attaches disks to compute nodes
+2. **Glance: (Image Service)** Stores and manages OS images used to launch virtual machine instances
+3. **Heat: (Orchestration Service)** Deploys application workloads as stacks using reusable YAML templates
+4. **Horizon: (Dashboard Service)** Web-based GUI for users to launch VMs, manage networks, and monitor cloud resources
+5. **Keystone: (Identity Service)** Handles authentication and authorization for overcloud users, projects, and domains
+6. **Neutron: (Networking Service)** Manages virtual networking infrastructure and connectivity using OVN technology
+7. **Nova: (Compute Service)** Schedules and runs virtual machines on compute nodes
+8. **Oslo: (Messaging Service)** Provides the communication layer between OpenStack services using RabbitMQ messaging
+9. **Swift: (Object Store Service)** Provides scalable object storage and back-end storage support for OpenStack services
+10. **Ironic: (Bare Metal Service)** Discovers and provisions physical hardware as overcloud nodes
+11. **Manila: (File Share Service)** Provides shared file storage for instances using NFS or CIFS protocols
+12. **Octavia: (Load Balancing Service)** Provides load balancing by distributing network traffic across application instances
+
+# How does the architecture look
+```
+[ Admin Laptop ] 
+       │
+       ▼
+ ┌───────────────┐
+ │  UNDERCLOUD   │ ──(Manages, Updates, Scales)──┐
+ └───────────────┘                               │
+                                                 ▼
+ ┌─────────────────────────────────────────────────────────────────┐
+ │                           OVERCLOUD                             │
+ │                                                                 │
+ │  ┌───────────────┐   ┌───────────────┐   ┌───────────────────┐  │
+ │  │  Controllers  │   │ Compute Nodes │   │ Ceph Storage Nodes│  │
+ │  └───────────────┘   └───────────────┘   └───────────────────┘  │
+ └─────────────────────────────────────────────────────────────────┘
+                                ▲
+                                │
+                         [ Actual Users ]
+```
